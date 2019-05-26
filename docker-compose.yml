@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  jreportcore:
+    build: .
+    image: jreportcore:api
+    container_name: jreportcore
+    tty: true
+    stdin_open: true
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    links:
+      - memcached:memcached
+      - jreportdb:jreportdb
+      - redis:redis
+    environment:
+      STAGE: docker
+      ENVIRONMENT: dev
+      MEMCACHED_HOST: memcached
+      DJANGO_SETTINGS_MODULE: config.settings.dev
+#    command: "python manage.py runserver 0.0.0.0:8000"
+  memcached:
+    image: memcached:latest
+    container_name: jreportmemcached
+    ports:
+      - "11211"
+  jreportdb:
+    image: postgres
+    restart: always
+    ports:
+      - 35432:5432
+    environment:
+      POSTGRES_DB: jreport
+      POSTGRES_PASSWORD: jreportpass
+
+  redis:
+    image: redis:3.2
+    ports:
+      - "6379"

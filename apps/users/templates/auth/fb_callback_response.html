@@ -1,0 +1,6 @@
+<div>
+    Facebook login process is finished, this window can be closed.
+</div>
+<script language="JavaScript">
+    window.opener.EventBus.$emit('fb-callback-fired', '{{ token }}');
+</script>
