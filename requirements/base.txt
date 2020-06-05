@@ -1,7 +1,7 @@
 asn1crypto==0.*
 celery==4.*
 cryptography==2.*
-Django==2.2
+Django==2.2.13
 django-redis==4.*
 django-redis-cache==1.*
 psycopg2-binary==2.7.*
